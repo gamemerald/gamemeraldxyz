@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Downloading...</title>
+  <script>
+    window.onload = function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const file = urlParams.get('file');
+
+      if (file) {
+        // Sanitize input (very basic check to prevent misuse)
+        if (/^[\w\-.\/]+$/.test(file)) {
+          // Construct the full file path (adjust path if necessary)
+          const downloadUrl = `/files/${file}`;
+
+          // Create a hidden link element and click it
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.download = file;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          alert('Invalid file parameter.');
+        }
+      } else {
+        alert('No file specified.');
+      }
+    };
+  </script>
+</head>
+<body>
+  <p>If your download doesn't start automatically, <a id="manualLink" href="#">click here</a>.</p>
+</body>
+</html>
