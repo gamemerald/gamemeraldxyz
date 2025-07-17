@@ -9,28 +9,33 @@
       const file = urlParams.get('file');
 
       if (file) {
-        // Sanitize input (very basic check to prevent misuse)
+        // Basic filename validation
         if (/^[\w\-.\/]+$/.test(file)) {
-          // Construct the full file path (adjust path if necessary)
-          //const downloadUrl = `/files/${file}`;
-          const downloadUrl = ``;
-          if(file == "mods.7z"){
-            const downloadUrl = `https://cdn.discordapp.com/attachments/1395240390680117268/1395240481629147197/mods.7z?ex=6879ba75&is=687868f5&hm=3328f337b55cd301384ac36c0463084ba2bb200731bce6f542b4a1475445d238&`
+          let downloadUrl = ''; // Use `let` so we can assign conditionally
+
+          // Set download URL based on file name
+          if (file === "mods.7z") {
+            downloadUrl = "https://cdn.discordapp.com/attachments/1395240390680117268/1395240481629147197/mods.7z?ex=6879ba75&is=687868f5&hm=3328f337b55cd301384ac36c0463084ba2bb200731bce6f542b4a1475445d238";
           }
 
-          const manualLink = document.getElementById("manualLink");
-          manualLink.href = downloadUrl;
-          manualLink.download = file;
-          
-          // Create a hidden link element and click it
-          const a = document.createElement('a');
-          a.href = downloadUrl;
-          a.download = file;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
+          if (downloadUrl) {
+            // Update manual link
+            const manualLink = document.getElementById("manualLink");
+            manualLink.href = downloadUrl;
+            manualLink.download = file;
 
-          console.log(downloadUrl);
+            // Auto trigger download
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = file;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            console.log("Download URL:", downloadUrl);
+          } else {
+            alert('Download URL not defined for this file.');
+          }
         } else {
           alert('Invalid file parameter.');
         }
