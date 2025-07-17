@@ -13,6 +13,7 @@
         if (/^[\w\-.\/]+$/.test(file)) {
           // Construct the full file path (adjust path if necessary)
           //const downloadUrl = `/files/${file}`;
+          const downloadUrl = ``;
           if(file == "mods.7z"){
             const downloadUrl = `https://cdn.discordapp.com/attachments/1395240390680117268/1395240481629147197/mods.7z?ex=6879ba75&is=687868f5&hm=3328f337b55cd301384ac36c0463084ba2bb200731bce6f542b4a1475445d238&`
           }
@@ -25,9 +26,9 @@
           a.click();
           document.body.removeChild(a);
 
-          // const manualLink = document.getElementById("manualLink");
-          // manualLink.href = downloadUrl;
-          // manualLink.download = file;
+          const manualLink = document.getElementById("manualLink");
+          manualLink.href = downloadUrl;
+          manualLink.download = file;
         } else {
           alert('Invalid file parameter.');
         }
